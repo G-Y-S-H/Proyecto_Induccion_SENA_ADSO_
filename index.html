@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Interactivo de Inducción SENA - CMTC</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sena: {
+                            green: '#39A900',
+                            darkgreen: '#2e8700',
+                            orange: '#FF6B00',
+                            navy: '#00324D',
+                            lightbg: '#F4F7F6',
+                            cardbg: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-sena {
+            background: linear-gradient(135deg, #00324D 0%, #001f31 50%, #39A900 100%);
+        }
+        .hero-pattern {
+            background-color: #00324D;
+            background-image: radial-gradient(#39A900 0.75px, transparent 0.75px), radial-gradient(#39A900 0.75px, #00324D 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            background-opacity: 0.15;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #39A900;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2e8700;
+        }
+    </style>
+</head>
+<body class="bg-sena-lightbg text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-sena-orange text-white text-xs md:text-sm py-2 px-4 text-center font-medium flex justify-between items-center px-6">
+        <span><i class="fas fa-graduation-cap mr-2"></i> Centro de Manufactura en Textil y Cuero (CMTC) - Regional Distrito Capital</span>
+        <a href="https://www.sena.edu.co" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-200 transition text-xs">
+            Sitio Oficial SENA <i class="fas fa-external-link-alt ml-1"></i>
+        </a>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md border-b-2 border-sena-green">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-sena-green rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-2 border-white">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl md:text-2xl font-black text-sena-navy tracking-tight block">SENA <span class="text-sena-green">CMTC</span></span>
+                        <span class="text-xs text-gray-500 font-semibold tracking-wider uppercase block">Inducción & Guía Formativa</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex space-x-1 font-medium text-sm text-gray-700">
+                    <a href="#identidad" class="px-3 py-2 rounded-md hover:bg-sena-green hover:text-white transition">Identidad</a>
+                    <a href="#noticiero" class="px-3 py-2 rounded-md hover:bg-sena-green hover:text-white transition">Historia 1957</a>
+                    <a href="#mision" class="px-3 py-2 rounded-md hover:bg-sena-green hover:text-white transition">Misión & Visión</a>
+                    <a href="#directorio" class="px-3 py-2 rounded-md hover:bg-sena-green hover:text-white transition">Directorio CMTC</a>
+                    <a href="#servicios" class="px-3 py-2 rounded-md hover:bg-sena-green hover:text-white transition">Servicios SIGA</a>
+                    <a href="#adso" class="px-3 py-2 rounded-md hover:bg-sena-green hover:text-white transition">Programa ADSO</a>
+                    <a href="#proyecto-vida" class="px-3 py-2 rounded-md hover:bg-sena-green hover:text-white transition">Proyecto Vida</a>
+                    <a href="#reglamento" class="px-3 py-2 rounded-md hover:bg-sena-green hover:text-white transition">Reglamento</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="hidden sm:flex items-center space-x-2">
+                    <button onclick="downloadCompleteSummary()" class="bg-sena-green hover:bg-sena-darkgreen text-white px-4 py-2 rounded-lg font-semibold text-xs shadow hover:shadow-lg transition flex items-center gap-2">
+                        <i class="fas fa-download"></i> Exportar Resumen
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-sena-navy hover:text-sena-green focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-1 text-sm font-medium">
+            <a href="#identidad" class="block px-3 py-2 rounded-md text-gray-700 hover:bg-sena-green hover:text-white">Identidad SENA</a>
+            <a href="#noticiero" class="block px-3 py-2 rounded-md text-gray-700 hover:bg-sena-green hover:text-white">Noticiero 1957</a>
+            <a href="#mision" class="block px-3 py-2 rounded-md text-gray-700 hover:bg-sena-green hover:text-white">Misión y Visión</a>
+            <a href="#directorio" class="block px-3 py-2 rounded-md text-gray-700 hover:bg-sena-green hover:text-white">Directorio CMTC</a>
+            <a href="#servicios" class="block px-3 py-2 rounded-md text-gray-700 hover:bg-sena-green hover:text-white">Servicios Integrados</a>
+            <a href="#adso" class="block px-3 py-2 rounded-md text-gray-700 hover:bg-sena-green hover:text-white">Programa ADSO</a>
+            <a href="#proyecto-vida" class="block px-3 py-2 rounded-md text-gray-700 hover:bg-sena-green hover:text-white">Proyecto de Vida</a>
+            <a href="#reglamento" class="block px-3 py-2 rounded-md text-gray-700 hover:bg-sena-green hover:text-white">Reglamento & Casos</a>
+            <div class="pt-2">
+                <button onclick="downloadCompleteSummary()" class="w-full bg-sena-green text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-2">
+                    <i class="fas fa-file-download"></i> Descargar Documento Completo
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+
+        <!-- Hero Section -->
+        <section class="gradient-sena text-white py-16 px-4 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+                <div class="md:col-span-8 space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-sena-orange px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border border-white/20">
+                        <i class="fas fa-award"></i> Guía de Aprendizaje e Inducción 01
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight">
+                        Proceso de Gestión de Formación Profesional Integral
+                    </h1>
+                    <p class="text-gray-200 text-base md:text-lg max-w-2xl leading-relaxed">
+                        Bienvenido a la institución más querida por los colombianos. Explora de manera interactiva la historia, identidad, estructura orgánica, servicios, programa ADSO y reglamento del SENA.
+                    </p>
+                    
+                    <!-- Team Badges -->
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10">
+                        <span class="text-xs text-sena-orange font-bold uppercase block mb-2"><i class="fas fa-users mr-1"></i> Aprendices Desarrolladores:</span>
+                        <div class="flex flex-wrap gap-2 text-xs text-white">
+                            <span class="bg-sena-navy/80 px-2.5 py-1 rounded-md border border-white/10"><i class="fas fa-user-circle mr-1"></i> Gerson Yesid Sanchez Huepa</span>
+                            <span class="bg-sena-navy/80 px-2.5 py-1 rounded-md border border-white/10"><i class="fas fa-user-circle mr-1"></i> Martin Felipe Galindo Castellanos</span>
+                            <span class="bg-sena-navy/80 px-2.5 py-1 rounded-md border border-white/10"><i class="fas fa-user-circle mr-1"></i> Juan Diego Rivera Rivera</span>
+                            <span class="bg-sena-navy/80 px-2.5 py-1 rounded-md border border-white/10"><i class="fas fa-user-circle mr-1"></i> Jorge Andrés Fajardo Triana</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Actions -->
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <a href="#noticiero" class="bg-sena-orange hover:bg-orange-600 text-white font-bold px-5 py-3 rounded-xl text-sm transition shadow-lg flex items-center gap-2">
+                            <i class="fas fa-broadcast-tower"></i> Radio 1957
+                        </a>
+                        <a href="#reglamento" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold px-5 py-3 rounded-xl text-sm transition flex items-center gap-2">
+                            <i class="fas fa-gavel"></i> Analizar Caso
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Side Card -->
+                <div class="md:col-span-4 bg-white/10 backdrop-blur-lg p-6 rounded-2xl border border-white/20 text-center space-y-4">
+                    <div class="w-24 h-24 mx-auto bg-white rounded-full p-2 shadow-xl flex items-center justify-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/SENA_logo.svg" onerror="this.onerror=null; this.src='https://placehold.co/100x100/39A900/ffffff?text=SENA'" alt="Logo SENA" class="w-20 h-20 object-contain">
+                    </div>
+                    <h2 class="text-xl font-bold">Centro de Manufactura en Textil y Cuero</h2>
+                    <p class="text-xs text-gray-200">Sede Calle 30 / Kr. 30 - Bogotá D.C.<br>Regional Distrito Capital</p>
+                    <div class="pt-2 border-t border-white/20 flex justify-around text-center">
+                        <div>
+                            <span class="block text-xl font-extrabold text-sena-orange">33</span>
+                            <span class="text-[10px] text-gray-300 uppercase font-bold">Regionales</span>
+                        </div>
+                        <div class="border-r border-white/20"></div>
+                        <div>
+                            <span class="block text-xl font-extrabold text-sena-green">ADSO</span>
+                            <span class="text-[10px] text-gray-300 uppercase font-bold">Tecnología</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Identidad SENA -->
+        <section id="identidad" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-sena-green text-xs font-bold tracking-widest uppercase block">3.3.1 Identidad Institucional</span>
+                <h2 class="text-3xl font-extrabold text-sena-navy mt-1">Símbolos Patrios e Institucionales SENA</h2>
+                <p class="text-gray-600 text-sm mt-2">Reflejo directo de la Formación Profesional Integral para el desarrollo social y técnico del país.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Himno -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-sena-green/10 text-sena-green rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy mb-2">El Himno</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            A través de sus letras y música, refleja la pasión y dedicación de los trabajadores colombianos, encarnando el espíritu de superación personal y el compromiso constante con el futuro nacional.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs font-semibold text-sena-green flex items-center justify-between">
+                        <span>Fuerza nueva para el país</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- Escudo -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-sena-orange/10 text-sena-orange rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy mb-2">El Escudo</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Símbolo de los tres sectores económicos: la piña (agropecuario), el engranaje (industrial y construcción) y el caduceo (comercio y servicios).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs font-semibold text-sena-orange flex items-center justify-between">
+                        <span>Sectores Productivos</span>
+                        <i class="fas fa-cog"></i>
+                    </div>
+                </div>
+
+                <!-- Bandera -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-sena-navy/10 text-sena-navy rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy mb-2">La Bandera</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Verde y blanco con el escudo en el centro. Representa la tranquilidad, la paz y el esfuerzo colectivo de la comunidad SENA hacia el desarrollo tecnológico.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs font-semibold text-sena-navy flex items-center justify-between">
+                        <span>Paz y Formación</span>
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+
+                <!-- Logo-símbolo -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-sena-green/10 text-sena-green rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy mb-2">Logo-Símbolo</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Muestra la figura de un alumno que camina hacia el futuro sobre un sendero de tres niveles que representan el aprendizaje y desarrollo integral continuo.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs font-semibold text-sena-green flex items-center justify-between">
+                        <span>Camino al Futuro</span>
+                        <i class="fas fa-walking"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Noticiero Radial 1957 (Interactive Audio Simulation) -->
+        <section id="noticiero" class="py-12 bg-sena-navy text-white relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="bg-sena-orange/20 text-sena-orange border border-sena-orange/40 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+                            <i class="fas fa-history mr-1"></i> 21 de Junio de 1957
+                        </span>
+                        <h2 class="text-3xl font-extrabold leading-tight">Radiodifusora Nacional de Colombia</h2>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Revive la histórica transmisión periodística que anunció la promulgación del Decreto Ley 118 por la Junta Militar de Gobierno, creando el SENA bajo la iniciativa de Rodolfo Martínez Tono.
+                        </p>
+                        
+                        <!-- Interactive Broadcast Audio Simulation -->
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/15 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold uppercase text-sena-green flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 bg-sena-green rounded-full animate-ping"></span>
+                                    Simulador de Transmisión de Radio
+                                </span>
+                                <span class="text-xs text-gray-400">AM 1957 kHz</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button id="play-radio-btn" onclick="toggleRadioAudio()" class="w-12 h-12 bg-sena-orange hover:bg-orange-600 rounded-full flex items-center justify-center text-white text-lg shadow-lg transition">
+                                    <i id="radio-icon" class="fas fa-play"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="text-xs font-bold">Boletín Extraordinario - Creación SENA</div>
+                                    <div class="text-[10px] text-gray-300" id="radio-status">Haz clic para escuchar el guion dramatizado</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button onclick="downloadScript()" class="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg border border-white/20 transition flex items-center gap-2">
+                                <i class="fas fa-file-alt"></i> Descargar Guion Periodístico (.txt)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Transcript Box -->
+                    <div class="lg:col-span-7 bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 max-h-[420px] overflow-y-auto space-y-4 text-xs leading-relaxed text-gray-200">
+                        <div class="border-b border-white/10 pb-2 flex justify-between items-center text-sena-orange font-bold">
+                            <span><i class="fas fa-microphone-alt mr-1"></i> Transcripción Oficial de la Emisión</span>
+                            <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded text-white">Rodolfo Martínez Tono</span>
+                        </div>
+                        
+                        <p><strong class="text-sena-green">LOCUTOR 1:</strong> ¡Interrumpimos nuestra programación habitual para llevarles una transmisión de última hora a todos los hogares colombianos desde la Radiodifusora Nacional!</p>
+                        <p><strong class="text-sena-green">LOCUTOR 1:</strong> ¡Atención, patria querida! Hoy, miércoles 21 de junio de 1957, las manecillas del reloj marcan una fecha que quedará grabada con letras de oro en los anales de nuestra historia. ¡Atención! ¡Se crea el Servicio Nacional de Aprendizaje, el SENA!</p>
+                        <p><strong class="text-sena-orange">LOCUTOR 2:</strong> ¡Así es, estimados patriotas! Mediante el histórico Decreto Ley 118 emitido por la Junta Militar de Gobierno, nace una institución llamada a transformar el destino del trabajador colombiano. Esta genialidad, nacida de la brillante mente del cartagenero Rodolfo Martínez Tono, une hoy en un solo abrazo de progreso al Estado, a nuestros laboriosos empresarios y a las centrales obreras del país.</p>
+                        <p><strong class="text-sena-green">LOCUTOR 1:</strong> ¡Escuchen bien, jóvenes de las ciudades y del campo! ¡Escuchen obreros de las fábricas! El SENA abre de par en par sus puertas para enseñarles un oficio, para capacitarlos en las artes de la técnica, la industria, el comercio y la agricultura. ¡Ya no habrá herramientas sin manos expertas ni sueños detenidos por falta de formación!</p>
+                        <p><strong class="text-sena-orange">LOCUTOR 2:</strong> Un verdadero triunfo de la unidad nacional. Hoy Colombia no solo funda una institución; hoy Colombia le da un motor de conocimiento y dignidad a la fuerza trabajadora que moverá a esta nación hacia el futuro.</p>
+                        <p><strong class="text-sena-green">LOCUTOR 1:</strong> ¡Celebremos todos en cada rincón del territorio nacional! Nos despedimos por ahora, pero recuerden: ¡con trabajo y estudio, el mañana le pertenece a Colombia!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Misión, Visión y Estructura Orgánica -->
+        <section id="mision" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Misión Card -->
+                <div class="bg-gradient-to-br from-white to-green-50/50 p-8 rounded-2xl shadow-sm border border-sena-green/30 relative">
+                    <div class="w-12 h-12 bg-sena-green text-white rounded-xl flex items-center justify-center text-xl mb-4 shadow-md">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-sena-navy mb-3">Misión Institucional</h3>
+                    <p class="text-sm text-gray-700 leading-relaxed italic mb-4">
+                        "El Servicio Nacional de Aprendizaje SENA está encargado de cumplir la función que corresponde al Estado de invertir en el desarrollo social y técnico de los trabajadores colombianos, ofreciendo y ejecutando la Formación Profesional Integral para la incorporación y el desarrollo de las personas en actividades productivas que contribuyan al desarrollo social, económico y tecnológico del país."
+                    </p>
+                    <div class="bg-white p-3 rounded-xl border border-gray-200 text-xs text-gray-600">
+                        <strong class="text-sena-green block mb-1"><i class="fas fa-lightbulb"></i> Enfoque en Confección & Tecnología:</strong>
+                        Entidad pública adscrita al Ministerio del Trabajo ofreciendo educación gratuita de alta calidad en múltiples sectores productivos.
+                    </div>
+                </div>
+
+                <!-- Visión / Marco Card -->
+                <div class="bg-gradient-to-br from-white to-blue-50/50 p-8 rounded-2xl shadow-sm border border-sena-navy/20 relative">
+                    <div class="w-12 h-12 bg-sena-navy text-white rounded-xl flex items-center justify-center text-xl mb-4 shadow-md">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-sena-navy mb-3">Marco Estratégico</h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                        Posicionarse como una entidad de clase mundial en la formación técnica y tecnológica, impulsando la innovación continua, la productividad empresarial y la inclusión social en todos los territorios de Colombia.
+                    </p>
+                    <div class="flex gap-2 text-xs">
+                        <a href="https://www.sena.edu.co/es-co/sena/Paginas/misionVision.aspx" target="_blank" class="bg-sena-navy text-white px-3 py-2 rounded-lg font-medium hover:bg-sena-navy/90 transition inline-flex items-center gap-1">
+                            Sitio Oficial Misión <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Directory / Organization -->
+            <div id="directorio" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-6 border-b border-gray-100 gap-4">
+                    <div>
+                        <span class="text-sena-green text-xs font-bold uppercase tracking-wider block">Estructura Organizacional</span>
+                        <h3 class="text-2xl font-bold text-sena-navy">Directorio y Autoridades - CMTC</h3>
+                    </div>
+                    <span class="bg-sena-lightbg text-sena-navy px-3 py-1.5 rounded-lg text-xs font-semibold border border-gray-200">
+                        <i class="fas fa-map-marker-alt text-sena-orange mr-1"></i> Regional Distrito Capital (Bogotá)
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Director General -->
+                    <div class="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-2">
+                        <div class="text-xs text-sena-orange font-bold uppercase">Dirección General</div>
+                        <div class="font-bold text-sena-navy text-base">Fray Ricardo Torres Castro</div>
+                        <p class="text-xs text-gray-500">Director General SENA Nacional. Máximo órgano: Consejo Directivo Nacional.</p>
+                    </div>
+
+                    <!-- Subdirectora Centro -->
+                    <div class="p-4 rounded-xl bg-sena-green/5 border border-sena-green/20 space-y-2">
+                        <div class="text-xs text-sena-green font-bold uppercase">Subdirectora de Centro (CMTC)</div>
+                        <div class="font-bold text-sena-navy text-base">Claudia Janet Gómez Larrotta</div>
+                        <p class="text-xs text-gray-600">cygomez@sena.edu.co</p>
+                        <p class="text-[11px] text-gray-500">Centro de Manufactura en Textil y Cuero</p>
+                    </div>
+
+                    <!-- Apoyo Subdirección -->
+                    <div class="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-2">
+                        <div class="text-xs text-sena-navy font-bold uppercase">Apoyo a Subdirección</div>
+                        <div class="text-xs font-semibold text-gray-800">Gladys Marlen Malaver Navarrete</div>
+                        <div class="text-xs text-gray-500">gmmalaver@sena.edu.co</div>
+                        <div class="text-xs font-semibold text-gray-800 pt-1">Maria Elizabeth Panadero García</div>
+                    </div>
+
+                    <!-- Coordinación Misional -->
+                    <div class="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-2">
+                        <div class="text-xs text-sena-navy font-bold uppercase">Coordinación Misional</div>
+                        <div class="font-bold text-sena-navy text-sm">Mariluz Rincón Prieto</div>
+                        <div class="text-xs text-gray-500">mrinconpr@sena.edu.co</div>
+                    </div>
+                </div>
+
+                <!-- Academic Coordinators Accordion/Grid -->
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                    <h4 class="text-sm font-bold text-sena-navy mb-3 uppercase tracking-wider"><i class="fas fa-graduation-cap text-sena-green mr-1"></i> Coordinadores Académicos y Equipo de Apoyo:</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <span class="font-bold block text-gray-800">Guillermo Adrian Linares</span>
+                            <span class="text-gray-500">glinares@sena.edu.co</span>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <span class="font-bold block text-gray-800">Aida Bohórquez Agudelo</span>
+                            <span class="text-gray-500">abohorqueza@sena.edu.co</span>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <span class="font-bold block text-gray-800">Fabio Alonso Camacho Sapuy</span>
+                            <span class="text-gray-500">facamacho@sena.edu.co</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Servicios del SENA (SIGA, Bienestar, Fondo Emprender, APE) -->
+        <section id="servicios" class="py-12 bg-white border-y border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="text-sena-orange text-xs font-bold uppercase tracking-widest block">3.3.2 Cobertura Integral</span>
+                    <h2 class="text-3xl font-extrabold text-sena-navy">Servicios SENA dentro del alcance SIGA</h2>
+                    <p class="text-gray-600 text-sm mt-2">Dependencias, responsables y ubicaciones clave en el Centro CMTC para apoyar tu formación.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Fondo Emprender -->
+                    <div class="p-6 rounded-2xl bg-sena-lightbg border border-gray-200 hover:border-sena-green transition space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="w-10 h-10 bg-sena-green/10 text-sena-green rounded-xl flex items-center justify-center font-bold text-lg"><i class="fas fa-rocket"></i></span>
+                            <span class="text-[10px] bg-sena-green text-white font-bold px-2 py-0.5 rounded uppercase">Capital Semilla</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy">Fondo Emprender</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Fondo de capital semilla financiado por el Gobierno Nacional para apoyar e incentivar proyectos productivos y la creación de empresas por aprendices.
+                        </p>
+                        <div class="pt-3 border-t border-gray-200 text-xs space-y-1">
+                            <div><strong class="text-sena-navy">Ubicación:</strong> Centro de Emprendimiento</div>
+                            <div><strong class="text-sena-navy">Responsables:</strong> John Jairo Lora Pinzón y Cristian Roberto Monsalve Echavarría</div>
+                        </div>
+                    </div>
+
+                    <!-- Agencia Pública de Empleo -->
+                    <div class="p-6 rounded-2xl bg-sena-lightbg border border-gray-200 hover:border-sena-green transition space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="w-10 h-10 bg-sena-orange/10 text-sena-orange rounded-xl flex items-center justify-center font-bold text-lg"><i class="fas fa-briefcase"></i></span>
+                            <span class="text-[10px] bg-sena-orange text-white font-bold px-2 py-0.5 rounded uppercase">Intermediación</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy">Agencia Pública de Empleo (APE)</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Plataforma de intermediación laboral para orientar la búsqueda de empleo, vinculación a vacantes e intermediación con el sector productivo.
+                        </p>
+                        <div class="pt-3 border-t border-gray-200 text-xs space-y-1">
+                            <div><strong class="text-sena-navy">Ubicación:</strong> Oficina de la APE / Relaciones Corporativas</div>
+                            <div><strong class="text-sena-navy">Responsable:</strong> Gloria Mercedes Marín Grisales (gmmarin@sena.edu.co)</div>
+                        </div>
+                    </div>
+
+                    <!-- SENNOVA -->
+                    <div class="p-6 rounded-2xl bg-sena-lightbg border border-gray-200 hover:border-sena-green transition space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="w-10 h-10 bg-sena-navy/10 text-sena-navy rounded-xl flex items-center justify-center font-bold text-lg"><i class="fas fa-microscope"></i></span>
+                            <span class="text-[10px] bg-sena-navy text-white font-bold px-2 py-0.5 rounded uppercase">Innovación</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy">SENNOVA</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Sistema de Investigación, Desarrollo Tecnológico e Innovación del SENA. Promueve proyectos de investigación aplicada y semilleros.
+                        </p>
+                        <div class="pt-3 border-t border-gray-200 text-xs space-y-1">
+                            <div><strong class="text-sena-navy">Ubicación:</strong> Laboratorio CMTC y Área de Innovación</div>
+                            <div><strong class="text-sena-navy">Responsables:</strong> Ingrid Tatiana Cruz, Fabio Ernesto Mora y Jennifer Katherine Calvo</div>
+                        </div>
+                    </div>
+
+                    <!-- Bienestar al Aprendiz -->
+                    <div class="p-6 rounded-2xl bg-sena-lightbg border border-gray-200 hover:border-sena-green transition space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center font-bold text-lg"><i class="fas fa-heart"></i></span>
+                            <span class="text-[10px] bg-red-600 text-white font-bold px-2 py-0.5 rounded uppercase">Apoyo Integral</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy">Bienestar al Aprendiz</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Atención en salud, apoyos socioeconómicos, orientación psicosocial, actividades culturales, deportivas y liderazgo de voceros.
+                        </p>
+                        <div class="pt-3 border-t border-gray-200 text-xs space-y-1">
+                            <div><strong class="text-sena-navy">Ubicación:</strong> Oficina de Bienestar al Aprendiz</div>
+                            <div><strong class="text-sena-navy">Responsables:</strong> Astrid Elena Bonilla, Elvia Del Pilar Rojas y Myriam Georgina Galindo</div>
+                        </div>
+                    </div>
+
+                    <!-- Sistema de Bibliotecas -->
+                    <div class="p-6 rounded-2xl bg-sena-lightbg border border-gray-200 hover:border-sena-green transition space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-lg"><i class="fas fa-book font-bold"></i></span>
+                            <span class="text-[10px] bg-blue-600 text-white font-bold px-2 py-0.5 rounded uppercase">Consulta Digital</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy">Sistema de Bibliotecas</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Acceso a catálogo físico, bases de datos digitales especializadas, préstamo de material bibliográfico y salas de estudio.
+                        </p>
+                        <div class="pt-3 border-t border-gray-200 text-xs space-y-1">
+                            <div><strong class="text-sena-navy">Ubicación:</strong> Biblioteca del Centro de Formación CMTC</div>
+                            <div><strong class="text-sena-navy">Responsable:</strong> Nury Andrea Forero Ariza (nforeroa@sena.edu.co)</div>
+                        </div>
+                    </div>
+
+                    <!-- Administración Educativa -->
+                    <div class="p-6 rounded-2xl bg-sena-lightbg border border-gray-200 hover:border-sena-green transition space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center font-bold text-lg"><i class="fas fa-id-card"></i></span>
+                            <span class="text-[10px] bg-purple-600 text-white font-bold px-2 py-0.5 rounded uppercase">Gestión Académica</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-sena-navy">Administración Educativa</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Trámites académicos, matrículas, certificaciones, novedades de centro (cancelaciones, traslados, aplazamientos) e historia académica.
+                        </p>
+                        <div class="pt-3 border-t border-gray-200 text-xs space-y-1">
+                            <div><strong class="text-sena-navy">Ubicación:</strong> Oficina de Administración Educativa</div>
+                            <div><strong class="text-sena-navy">Responsables:</strong> Jarinsson Gómez Repizo y Angie Lorena Pardo Gutiérrez</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Programa ADSO (Análisis y Desarrollo de Software) -->
+        <section id="adso" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-sena-navy to-slate-900 text-white p-8 rounded-3xl shadow-xl space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
+                    <div>
+                        <span class="text-sena-green text-xs font-bold uppercase tracking-wider block">Programa de Formación Titulada</span>
+                        <h2 class="text-3xl font-black">Análisis y Desarrollo de Software (ADSO)</h2>
+                    </div>
+                    <span class="bg-sena-green text-white font-bold text-xs px-4 py-2 rounded-xl self-start md:self-auto">
+                        Nivel Tecnólogo
+                    </span>
+                </div>
+
+                <!-- Competencia en Desglose -->
+                <div class="bg-white/5 p-6 rounded-2xl border border-white/10 space-y-4">
+                    <h3 class="text-lg font-bold text-sena-orange flex items-center gap-2">
+                        <i class="fas fa-code"></i> Competencia Asignada: Modelado de los Artefactos de Software
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed">
+                        <div class="space-y-2 bg-white/5 p-4 rounded-xl border border-white/5">
+                            <h4 class="font-bold text-sena-green uppercase text-[11px] tracking-wider"><i class="fas fa-tasks mr-1"></i> Resultados de Aprendizaje (RAP):</h4>
+                            <ul class="list-disc list-inside space-y-2 text-gray-200">
+                                <li>Incorpora patrones de diseño propendiendo en mejores prácticas para la codificación y mantenibilidad del software.</li>
+                                <li>Define la arquitectura del software dando cumplimiento a los requisitos funcionales y no funcionales.</li>
+                                <li>Crea la vista de componentes para visualizar el software en fases avanzadas del ciclo de vida.</li>
+                                <li>Crea la vista de despliegue del software para determinar condiciones de la implantación de la solución informática.</li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-2 bg-white/5 p-4 rounded-xl border border-white/5">
+                            <h4 class="font-bold text-sena-orange uppercase text-[11px] tracking-wider"><i class="fas fa-check-double mr-1"></i> Criterios de Evaluación:</h4>
+                            <ul class="list-disc list-inside space-y-2 text-gray-200">
+                                <li>Interpreta el informe de análisis identificando las características del software a diseñar.</li>
+                                <li>Define las plataformas tecnológicas a emplear en el desarrollo de acuerdo con las condiciones solicitadas.</li>
+                                <li>Crea el diagrama de clases de acuerdo con los requisitos, aplicando buenas prácticas de POO.</li>
+                                <li>Establece la vista de componentes y despliegue atendiendo a los parámetros del proyecto formativo.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Media Link for Manufacturing Sector Video -->
+                <div class="bg-white/10 p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center text-white text-xl">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm">Video de Contextualización Sectorial</div>
+                            <div class="text-xs text-gray-300">Observa el desarrollo de procesos en el sector manufactura (Mochilas y Bolsos)</div>
+                        </div>
+                    </div>
+                    <a href="https://youtu.be/NUDgl37Uhag" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg transition flex items-center gap-2 whitespace-nowrap">
+                        <i class="fas fa-play"></i> Ver en YouTube <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Proyecto de Vida (Reflexión Pepe Mujica & Dimensiones del Ser) -->
+        <section id="proyecto-vida" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-sena-green text-xs font-bold uppercase tracking-widest block">Dimensión Humana e Integral</span>
+                <h2 class="text-3xl font-extrabold text-sena-navy">Proyecto de Vida y Desarrollo del Ser</h2>
+                <p class="text-gray-600 text-sm mt-2">Inspirado en el pensamiento de José "Pepe" Mujica y el equilibrio multidimensional del ser humano.</p>
+            </div>
+
+            <!-- Video Mujica Card & Reflective Answers -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 mb-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="relative rounded-xl overflow-hidden shadow-md group">
+                        <img src="https://placehold.co/600x350/00324D/ffffff?text=Discurso+Pepe+Mujica+a+los+Jovenes" alt="Discurso Mujica" class="w-full h-auto object-cover">
+                        <a href="https://www.youtube.com/watch?v=tHkXmBzmq3A" target="_blank" class="absolute inset-0 bg-sena-navy/60 flex items-center justify-center text-white text-3xl group-hover:scale-110 transition">
+                            <i class="fab fa-youtube text-red-500 bg-white rounded-full p-2"></i>
+                        </a>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <h3 class="font-bold text-sena-navy text-lg">Discurso a los Jóvenes - Pepe Mujica</h3>
+                        <p class="text-xs text-gray-500">Reflexión sobre el valor del tiempo, la persistencia y el verdadero sentido de la vida.</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-4 text-xs">
+                    <div class="bg-sena-lightbg p-4 rounded-xl border border-gray-200">
+                        <h4 class="font-bold text-sena-navy text-sm mb-1"><i class="fas fa-quote-left text-sena-green mr-1"></i> Sobre lo "Imposible" y ser "Derrotado":</h4>
+                        <p class="text-gray-700 leading-relaxed italic">
+                            "Imposible es aquello que mentalmente cuesta un poco más procesar o superar. Derrotado es solo aquel que baja las manos y deja de luchar. No hay que rendirse jamás; ante el error o la caída, se toma aliento, se reflexiona y se vuelve a dar el siguiente paso."
+                        </p>
+                    </div>
+
+                    <div class="bg-sena-lightbg p-4 rounded-xl border border-gray-200">
+                        <h4 class="font-bold text-sena-navy text-sm mb-1"><i class="fas fa-compass text-sena-orange mr-1"></i> Sentido Actual de Vida:</h4>
+                        <p class="text-gray-700 leading-relaxed">
+                            Desarrollar competencias técnicas sólidas en Análisis y Desarrollo de Software para emprender proyectos de impacto social, apoyando el crecimiento de la comunidad y sirviendo de ejemplo e inspiración para las futuras generaciones.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dimensions Grid Table -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-sena-navy text-white px-6 py-4 flex justify-between items-center">
+                    <h3 class="font-bold text-base"><i class="fas fa-cubes mr-2 text-sena-green"></i> Matriz de Dimensiones del Ser Humano</h3>
+                    <span class="text-xs text-gray-300">Autoconocimiento Integral</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-gray-100 text-sena-navy uppercase text-[10px] tracking-wider border-b border-gray-200">
+                                <th class="p-4">Dimensión</th>
+                                <th class="p-4">Potencialidades Identificadas</th>
+                                <th class="p-4">Aspectos Limitantes / Retos</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-bold text-sena-navy">Biológica</td>
+                                <td class="p-4 text-gray-600">Buena salud física y mental para afrontar retos de aprendizaje.</td>
+                                <td class="p-4 text-gray-500">Enfermedades crónicas o hábitos sedentarios.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-bold text-sena-navy">Intelectiva</td>
+                                <td class="p-4 text-gray-600">Capacidad de asimilación rápida de conceptos lógicos y tecnológicos.</td>
+                                <td class="p-4 text-gray-500">Déficit de atención temporal o saturación de información.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-bold text-sena-navy">Volitiva</td>
+                                <td class="p-4 text-gray-600">Perseverancia, autodeterminación e integración social activa.</td>
+                                <td class="p-4 text-gray-500">Baja motivación en momentos de alta frustración.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-bold text-sena-navy">Socio-Política</td>
+                                <td class="p-4 text-gray-600">Empatía, fundamentación ética en valores familiares y sentido comunitario.</td>
+                                <td class="p-4 text-gray-500">Aislamiento social o intolerancia ante desacuerdos.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-bold text-sena-navy">Económico-Laboral</td>
+                                <td class="p-4 text-gray-600">Formación técnica de vanguardia en ADSO con visión de emprendimiento.</td>
+                                <td class="p-4 text-gray-500">Escasez temporal de capital de trabajo o recursos para movilización.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Reglamento del Aprendiz & Caso de Estudio -->
+        <section id="reglamento" class="py-12 bg-sena-lightbg border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="text-red-600 text-xs font-bold uppercase tracking-widest block">Normativa e Institucionalidad</span>
+                    <h2 class="text-3xl font-extrabold text-sena-navy">Reglamento del Aprendiz y Debido Proceso</h2>
+                    <p class="text-gray-600 text-sm mt-2">Análisis detallado de faltas disciplinarias, principios normativos y resolución formal de casos.</p>
+                </div>
+
+                <!-- Case Study Box -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-red-200 space-y-6">
+                    <div class="flex items-center gap-3 border-b border-gray-100 pb-4">
+                        <div class="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center font-bold text-lg">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] bg-red-600 text-white font-bold px-2 py-0.5 rounded uppercase">Análisis de Caso No. 4</span>
+                            <h3 class="text-xl font-bold text-sena-navy">Fraude en Solicitud de Apoyo de Sostenimiento</h3>
+                        </div>
+                    </div>
+
+                    <!-- Context -->
+                    <div class="bg-red-50/50 p-4 rounded-xl border border-red-100 text-xs text-gray-700 leading-relaxed space-y-2">
+                        <p><strong class="text-red-700">Contexto del Caso:</strong> Un aprendiz matriculado con patrocinio de empresa solicita el "Apoyo de Sostenimiento" presentando una constancia de desempleo falsa. Tras desembolsarse los recursos públicos, el SENA descubre la falsificación documental.</p>
+                    </div>
+
+                    <!-- Breakdown Table / Analysis Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                        <!-- Calificación y Criterios -->
+                        <div class="space-y-3 bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <h4 class="font-bold text-sena-navy text-sm flex items-center gap-2">
+                                <i class="fas fa-exclamation-triangle text-sena-orange"></i> Calificación y Clasificación
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><strong>Calificación de la Falta:</strong> <span class="bg-red-600 text-white px-2 py-0.5 rounded font-bold">GRAVÍSIMA</span> (Cap. VIII, Art. 25). Concuerda con la mala fe, dolo explícito y la presunta comisión de un delito.</li>
+                                <li><strong>Clasificación:</strong> <span class="font-bold text-sena-navy">DISCIPLINARIA</span> (Cap. VIII, Art. 23). Violación directa de los deberes y principios éticos del aprendiz.</li>
+                                <li><strong>Criterios Aplicados:</strong> Daño patrimonial al Estado, afectación a un aprendiz vulnerable, abuso de confianza e inducción al error mediante documento falso.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Artículos Vulnerados & Sanción -->
+                        <div class="space-y-3 bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <h4 class="font-bold text-sena-navy text-sm flex items-center gap-2">
+                                <i class="fas fa-balance-scale text-sena-navy"></i> Artículos Vulnerados y Sanción
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><strong>Prohibiciones Vulneradas:</strong> Cap. IV, Art. 10, Numerales 5 y 9 (Aportar información falsa e incurrir en fraude o estafa).</li>
+                                <li><strong>Sanción Aplicable:</strong> <span class="font-bold text-red-600">CANCELACIÓN DE MATRÍCULA</span> e Inhabilitación para ingresar al SENA de 12 a 24 meses (Art. 28).</li>
+                                <li><strong>Acción Legal:</strong> Compulsa de copias a la Fiscalía por falsedad en documento público/privado y devolución de dineros.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Process Steps -->
+                    <div class="pt-4 border-t border-gray-100">
+                        <h4 class="font-bold text-sena-navy text-xs uppercase tracking-wider mb-3">Fases del Debido Proceso (Capítulo X):</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center text-[11px]">
+                            <div class="p-3 bg-sena-lightbg rounded-lg border border-gray-200">
+                                <span class="block font-bold text-sena-navy">1. Informe / Queja</span>
+                                <span class="text-gray-500">Remisión de evidencias al Subdirector</span>
+                            </div>
+                            <div class="p-3 bg-sena-lightbg rounded-lg border border-gray-200">
+                                <span class="block font-bold text-sena-navy">2. Citación a Comité</span>
+                                <span class="text-gray-500">Notificación formal de cargos</span>
+                            </div>
+                            <div class="p-3 bg-sena-lightbg rounded-lg border border-gray-200">
+                                <span class="block font-bold text-sena-navy">3. Comité & Descargos</span>
+                                <span class="text-gray-500">Derecho constitucional a la defensa</span>
+                            </div>
+                            <div class="p-3 bg-sena-lightbg rounded-lg border border-gray-200">
+                                <span class="block font-bold text-sena-navy">4. Acto Administrativo</span>
+                                <span class="text-gray-500">Resolución con recurso de reposición</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Download Case Resolution Button -->
+                    <div class="text-right">
+                        <button onclick="downloadCaseResolution()" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition inline-flex items-center gap-2 shadow">
+                            <i class="fas fa-file-pdf"></i> Descargar Dictamen de Caso (.txt)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-sena-navy text-white border-t-4 border-sena-green py-10 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-xs">
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-sena-green rounded-full flex items-center justify-center font-bold text-sm">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <span class="text-lg font-bold">SENA CMTC</span>
+                </div>
+                <p class="text-gray-400 leading-relaxed">
+                    Servicio Nacional de Aprendizaje - Centro de Manufactura en Textil y Cuero. Regional Distrito Capital, Bogotá D.C.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sena-green uppercase tracking-wider mb-3">Enlaces Oficiales</h4>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="https://www.sena.edu.co" target="_blank" class="hover:text-sena-orange transition"><i class="fas fa-angle-right mr-1"></i> Portal Principal SENA</a></li>
+                    <li><a href="http://biblioteca.sena.edu.co" target="_blank" class="hover:text-sena-orange transition"><i class="fas fa-angle-right mr-1"></i> Biblioteca Digital SENA</a></li>
+                    <li><a href="http://senasofiaplus.edu.co" target="_blank" class="hover:text-sena-orange transition"><i class="fas fa-angle-right mr-1"></i> Portal SOFIA Plus</a></li>
+                    <li><a href="https://ape.sena.edu.co" target="_blank" class="hover:text-sena-orange transition"><i class="fas fa-angle-right mr-1"></i> Agencia Pública de Empleo</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sena-orange uppercase tracking-wider mb-3">Programa Académico</h4>
+                <p class="text-gray-300">Tecnología en Análisis y Desarrollo de Software (ADSO)</p>
+                <p class="text-gray-400 mt-2">Modalidad: Presencial / Mixta<br>Centro: CMTC - Calle 30 / Kr. 30</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sena-green uppercase tracking-wider mb-3">Desarrolladores</h4>
+                <p class="text-gray-300 font-semibold mb-1">Equipo de Aprendices:</p>
+                <p class="text-gray-400">Gerson Y. Sanchez | Martin F. Galindo<br>Juan D. Rivera | Jorge A. Fajardo</p>
+                <button onclick="downloadCompleteSummary()" class="mt-4 w-full bg-sena-green hover:bg-sena-darkgreen text-white font-bold py-2 rounded-lg text-[11px] transition">
+                    <i class="fas fa-download mr-1"></i> Descargar Memoria Técnica
+                </button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-white/10 text-center text-gray-400 text-[11px]">
+            &copy; 2026 Servicio Nacional de Aprendizaje (SENA). Todos los derechos reservados. Portal interactivo adaptado para la Guía de Aprendizaje e Inducción.
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactivity & Dynamic File Generation -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive Web Audio Sound Simulation for 1957 News Broadcast
+        let audioCtx = null;
+        let isPlayingRadio = false;
+
+        function toggleRadioAudio() {
+            const btn = document.getElementById('play-radio-btn');
+            const icon = document.getElementById('radio-icon');
+            const status = document.getElementById('radio-status');
+
+            if (!isPlayingRadio) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    // Generate radio static / beep sound for retro effect
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, audioCtx.currentTime); // Standard beep
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3); // Short audio feedback
+
+                    icon.className = 'fas fa-stop';
+                    status.innerText = 'Sintonizando Radiodifusora Nacional 1957... (Audio en reproducción visual)';
+                    isPlayingRadio = true;
+                } catch(e) {
+                    console.log('Audio Context restricted or not supported');
+                }
+            } else {
+                if(audioCtx) audioCtx.close();
+                icon.className = 'fas fa-play';
+                status.innerText = 'Haz clic para escuchar el guion dramatizado';
+                isPlayingRadio = false;
+            }
+        }
+
+        // Helper Function to trigger downloads using data URI
+        function triggerDownload(content, filename, contentType = 'text/plain;charset=utf-8') {
+            const element = document.createElement('a');
+            const file = new Blob([content], {type: contentType});
+            element.href = URL.createObjectURL(file);
+            element.download = filename;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        // Download Script 1957 Radio Broadcast
+        function downloadScript() {
+            const scriptContent = `
+===================================================================
+RADIODIFUSORA NACIONAL DE COLOMBIA - BOLETÍN EXTRAORDINARIO
+FECHA HISTÓRICA: MIÉRCOLES 21 DE JUNIO DE 1957
+TEMA: CREACIÓN DEL SERVICIO NACIONAL DE APRENDIZAJE (SENA)
+===================================================================
+
+LOCUTOR 1:
+¡Interrumpimos nuestra programación habitual para llevarles una transmisión de última hora a todos los hogares colombianos desde la Radiodifusora Nacional!
+¡Atención, patria querida! Hoy, miércoles 21 de junio de 1957, las manecillas del reloj marcan una fecha que quedará grabada con letras de oro en los anales de nuestra historia. ¡Atención! ¡Se crea el Servicio Nacional de Aprendizaje, el SENA!
+
+LOCUTOR 2:
+¡Así es, estimados patriotas! Mediante el histórico Decreto Ley 118 emitido por la Junta Militar de Gobierno, nace una institución llamada a transformar el destino del trabajador colombiano.
+Esta genialidad, nacida de la brillante mente del cartagenero Rodolfo Martínez Tono, une hoy en un solo abrazo de progreso al Estado, a nuestros laboriosos empresarios y a las centrales obreras del país.
+
+LOCUTOR 1:
+¡Escuchen bien, jóvenes de las ciudades y del campo! ¡Escuchen obreros de las fábricas! El SENA abre de par en par sus puertas para enseñarles un oficio, para capacitarlos en las artes de la técnica, la industria, el comercio y la agricultura.
+¡Ya no habrá herramientas sin manos expertas ni sueños detenidos por falta de formación!
+
+LOCUTOR 2:
+Un verdadero triunfo de la unidad nacional. Hoy Colombia no solo funda una institución; hoy Colombia le da un motor de conocimiento y dignidad a la fuerza trabajadora que moverá a esta nación hacia el futuro.
+
+LOCUTOR 1:
+¡Celebremos todos en cada rincón del territorio nacional! Nos despedimos por ahora, pero recuerden: ¡con trabajo y estudio, el mañana le pertenece a Colombia!
+
+LOCUTOR 2:
+¡Sigan en sintonía de la Radiodifusora Nacional de Colombia! ¡Muy buenas tardes!
+            `;
+            triggerDownload(scriptContent, 'Guion_Radio_SENA_1957.txt');
+        }
+
+        // Download Resolution of Case Study
+        function downloadCaseResolution() {
+            const caseContent = `
+===================================================================
+RESOLUCIÓN CASO DISCIPLINARIO NO. 04 - REGLAMENTO DEL APRENDIZ
+CENTRO DE MANUFACTURA EN TEXTIL Y CUERO (CMTC) - SENA
+===================================================================
+
+1. SITUACIÓN Y CONTEXTO:
+Un aprendiz patrocinado por empresa presenta documentación de desempleo falsificada para acceder fraudulentamente a los recursos del Apoyo de Sostenimiento Institucional.
+
+2. DICTAMEN JURÍDICO Y NORMATIVO:
+
+- CALIFICACIÓN DE LA FALTA: GRAVÍSIMA
+  Fuente Normativa: Capítulo VIII: Faltas académicas y disciplinarias, Artículo 25.
+  Sustento: Concurre dolo manifiesto, mala fe, falsificación documental y apropiación indebida de recursos públicos.
+
+- CLASIFICACIÓN DE LA FALTA: DISCIPLINARIA
+  Fuente Normativa: Capítulo VIII, Artículo 23.
+  Sustento: Incumplimiento grave de los deberes y principios éticos universales del aprendiz SENA.
+
+- ARTÍCULOS VULNERADOS:
+  • Capítulo IV (Prohibiciones), Art. 10, Numeral 5: Aportar información o documentos falsos.
+  • Capítulo IV, Art. 10, Numeral 9: Incurrir en estafa o abusar de la confianza institucional.
+
+- SANCIÓN APLICABLE:
+  • CANCELACIÓN DE LA MATRÍCULA e inhabilitación para ingresar al SENA por un periodo de 12 a 24 meses (Art. 28, Numeral 2).
+  • Devolución inmediata de los fondos desembolsados.
+  • Compulsa de copias ante la Fiscalía General de la Nación por delito de falsedad documental.
+
+- DEBIDO PROCESO Y ETAPAS:
+  1. Informe motivado del área de Apoyo de Sostenimiento.
+  2. Citación a Comité de Evaluación y Seguimiento.
+  3. Audiencia de descargos (Derecho a la defensa).
+  4. Emitir Acta Recomendatoria.
+  5. Expedición de Resolución Sancionatoria por Subdirección con recurso de reposición.
+
+EQUIPO DE TRABAJO EVALUADOR:
+- Gerson Yesid Sanchez Huepa
+- Martin Felipe Galindo Castellanos
+- Juan Diego Rivera Rivera
+- Jorge Andrés Fajardo Triana
+            `;
+            triggerDownload(caseContent, 'Dictamen_Caso_Disciplinario_SENA.txt');
+        }
+
+        // Download Complete Institutional Summary
+        function downloadCompleteSummary() {
+            const summaryText = `
+===================================================================
+COMPENDIO INTEGRAL DE INDUCCIÓN Y GUÍA DE APRENDIZAJES - SENA CMTC
+===================================================================
+
+INFORMACIÓN DEL CENTRO:
+- Centro: Centro de Manufactura en Textil y Cuero (CMTC)
+- Regional: Distrito Capital (Bogotá D.C.)
+- Subdirectora de Centro: Claudia Janet Gómez Larrotta (cygomez@sena.edu.co)
+- Coordinación Misional: Mariluz Rincón Prieto (mrinconpr@sena.edu.co)
+
+EQUIPO DE APRENDICES DESARROLLADORES:
+- Gerson Yesid Sanchez Huepa
+- Martin Felipe Galindo Castellanos
+- Juan Diego Rivera Rivera
+- Jorge Andrés Fajardo Triana
+
+PROGRAMA ACADÉMICO:
+- Tecnología en Análisis y Desarrollo de Software (ADSO)
+- Competencia Asignada: Modelado de los Artefactos de Software
+- Nivel: Tecnólogo
+
+SÍNTESIS DE LA MISIÓN SENA:
+El SENA cumple la función que corresponde al Estado colombiano de invertir en el desarrollo social y técnico de los trabajadores, ejecutando la Formación Profesional Integral gratuita y de alta calidad.
+
+DEPENDENCIAS Y SERVICIOS CLAVE (SIGA):
+1. Fondo Emprender: Capital semilla. Responsables: John Jairo Lora / Cristian Monsalve.
+2. Agencia Pública de Empleo (APE): Intermediación laboral. Responsable: Gloria Mercedes Marín.
+3. SENNOVA: Investigación aplicada e innovación.
+4. Bienestar al Aprendiz: Apoyos socioeconómicos y formación humana.
+5. Administración Educativa: Novedades y certificaciones académicas.
+6. Biblioteca CMTC: Recursos físicos y digitales. Responsable: Nury Andrea Forero.
+
+PROYECTO DE VIDA - PEPE MUJICA:
+- Lo Imposible: Exige un mayor esfuerzo mental y perseverancia.
+- Derrotado: Aquel que baja los brazos y abandona sus sueños.
+- Compromiso: Usar el conocimiento tecnológico en ADSO para generar impacto social y emprendimiento.
+
+===================================================================
+Generado automáticamente desde el Portal Interactivo de Inducción SENA
+===================================================================
+            `;
+            triggerDownload(summaryText, 'Resumen_General_Induccion_SENA_CMTC.txt');
+        }
+    </script>
+</body>
+</html>
